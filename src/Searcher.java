@@ -1,4 +1,3 @@
-import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -10,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static org.apache.lucene.search.Sort.INDEXORDER;
 
 public class Searcher {
@@ -17,18 +17,12 @@ public class Searcher {
     public DirectoryReader ireader = null;
     public IndexSearcher isearcher = null;
 
-    Searcher(Object[] fields){
-        this.fields = fields;
-    }
-
-    Searcher(){
-
-    }
     /**
      * Search implementation with arbitrary sorting.
+     *
      * @param whatFind The query to search for
-     * @param n Return only the top n results
-     * @return return 
+     * @param n        Return only the top n results
+     * @return return List of the results
      * @throws IOException if there is a low-level I/O error
      */
     public List<ScoreDoc> search(String whatFind, int n) throws IOException {

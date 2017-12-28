@@ -5,19 +5,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class SearchEngine {
-
-    public static void main(String[] args) {
-        SearchEngine main = new SearchEngine();
-        try {
-            SearchEngine.indexer("D:\\news.json");
-            main.search("Сотрудниками~");
-            System.out.println("next query");
-            main.search("ASTANA~");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * This method indexed json file
      *
@@ -33,11 +20,11 @@ public class SearchEngine {
      *
      * @param whatFind the query of Lucene
      */
-    public void search(String whatFind) throws IOException {
+    public void search(String whatFind, int n) throws IOException {
         Searcher searcher = new Searcher();
         // Задаем поля для поиска, если надо, по - умолчанию стоят все возможные поля
         // Текст для поиска
-        List<ScoreDoc> result = searcher.search(whatFind);
+        List<ScoreDoc> result = searcher.search(whatFind, n);
         // Iterate through the results:
         for (ScoreDoc scoreDoc : result) {
             Document hitDoc = searcher.isearcher.doc(scoreDoc.doc);

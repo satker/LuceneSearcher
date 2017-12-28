@@ -1,4 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -12,7 +11,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import static org.apache.commons.io.FileUtils.readFileToString;
 
@@ -30,7 +32,11 @@ class Indexer {
         this.directoryIn = directory;
     }
 
-    // индексация файла
+    /**
+     * Indexed parse JSON file from @method readFile().
+     *
+     * @throws IOException if there is a low-level I/O error
+     */
     void index() throws IOException {
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
         IndexWriter iwriter = new IndexWriter(directory, config);
@@ -48,6 +54,12 @@ class Indexer {
         iwriter.close();
     }
 
+    /**
+     * Parse JSON file.
+     *
+     * @return return Map of the parse JSON file
+     * @throws IOException if there is a low-level I/O error
+     */
     private Map<Integer, Map<String, String>> readFile() throws IOException {
         Map<Integer, Map<String, String>> map = new HashMap<>();
         File file = new File(directoryIn);
