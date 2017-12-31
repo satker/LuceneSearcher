@@ -2,11 +2,8 @@ package com.satker.engine;
 
 import com.satker.elements.Indexer;
 import com.satker.elements.Searcher;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.search.ScoreDoc;
 
 import java.io.IOException;
-import java.util.List;
 
 public class SearchEngine {
     /**
@@ -19,23 +16,32 @@ public class SearchEngine {
         ind.index();
     }
 
+//    public void search(String whatFind, int n, String... keys) throws IOException {
+//        Searcher searcher = new Searcher();
+//        // Задаем поля для поиска, если надо, по - умолчанию стоят все возможные поля
+//        // Текст для поиска
+//        List<> searcher.search(whatFind, n);
+//        //Iterate through the results:
+//        for (ScoreDoc scoreDoc : result) {
+//            Document hitDoc = Searcher.isearcher.doc(scoreDoc.doc);
+//            for (String key : keys) {
+//                System.out.println(hitDoc.get(key));
+//            }
+//        }
+//        Searcher.ireader.close();
+//    }
+
     /**
      * This method print result of search
      *
      * @param whatFind the query of Lucene
+     * @param n        number of rows
      */
-    public void search(String whatFind, int n, String... keys) throws IOException {
+    public void search(String whatFind, int n) throws IOException {
+        whatFind = whatFind + "~";
         Searcher searcher = new Searcher();
-        // Задаем поля для поиска, если надо, по - умолчанию стоят все возможные поля
-        // Текст для поиска
-        List<ScoreDoc> result = searcher.search(whatFind, n);
-        // Iterate through the results:
-        for (ScoreDoc scoreDoc : result) {
-            Document hitDoc = searcher.isearcher.doc(scoreDoc.doc);
-            for (String key : keys) {
-                System.out.println(hitDoc.get(key));
-            }
-        }
-        searcher.ireader.close();
+        searcher.search(whatFind, n);
+        Searcher.ireader.close();
     }
+
 }
